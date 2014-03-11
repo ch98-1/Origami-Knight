@@ -7,6 +7,6 @@
 //including all things
 
 int init ();
-int cleanup ();
+int cleanup (unsigned long *window);
  
 #endif
