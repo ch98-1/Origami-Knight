@@ -6,8 +6,8 @@ download cmake at http://www.cmake.org/cmake/resources/software.html
 To compile,      
 download and unzip the source file,  
 run...
- cmake (source directory),
+ cmake (source directory),                           
 then run ...
- make ,
+ make ,                                               
 or make with make file it created.
  
