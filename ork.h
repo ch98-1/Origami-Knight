@@ -2,15 +2,17 @@
     #define _ORK_H_
 //ork stands for Origami Knight
 #include "SDL.h"
-#include "SDL_image.h"
 #include <stdio.h>
 #include <stdlib.h>
 //including all things
 
-int init ();
-int event ();
-int loop ();
-int render ();
-int cleanup (unsigned long *window, unsigned long *box);
+void sprite (SDL_Surface* image,
+                SDL_Surface* screen,
+                int sorX, int sorY,
+                int scrX, int scrY,
+                int width, int height,
+		int zoom, int cr,
+		int cg, int cb);
+
  
 #endif
