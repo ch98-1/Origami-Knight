@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
 project (OrigamiKnight)
 include_directories("${PROJECT_SOURCE_DIR}")
-add_executable(OrigamiKnight ork.c)
+add_executable(OrigamiKnight ork.c sprite.c)
 include(FindPkgConfig)
 pkg_search_module(SDL2 REQUIRED sdl2)
 include_directories(${SDL2_INCLUDE_DIRS})

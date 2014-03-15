@@ -4,15 +4,9 @@
 #include "SDL.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "sprite.h"
 //including all things
 
-void sprite (SDL_Surface* image,
-                SDL_Surface* screen,
-                int sorX, int sorY,
-                int scrX, int scrY,
-                int width, int height,
-		int zoom, int cr,
-		int cg, int cb);
 
  
 #endif
