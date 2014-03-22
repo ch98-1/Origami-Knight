@@ -1,5 +1,6 @@
 cmake_minimum_required (VERSION 2.6)
 project (OrigamiKnight)
+file(COPY ${PROJECT_SOURCE_DIR}/media DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 include_directories("${PROJECT_SOURCE_DIR}")
 add_executable(OrigamiKnight ork.c sprite.c)
 include(FindPkgConfig)

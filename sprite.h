@@ -5,7 +5,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void sprite (SDL_Surface* image,
+
+//draw sprite
+void dsprite (SDL_Surface* image,
                 SDL_Surface* screen,
                 int sorX, int sorY,
                 int scrX, int scrY,
