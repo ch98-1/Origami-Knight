@@ -44,6 +44,8 @@ SDL_Init(SDL_INIT_EVERYTHING);
     //free opend surface 
     SDL_FreeSurface(box);
 
+    SDL_FreeSurface(OrK);
+
     // Close and destroy the window
     SDL_DestroyWindow(window);
 
