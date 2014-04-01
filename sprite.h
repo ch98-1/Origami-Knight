@@ -7,11 +7,9 @@
 
 
 //draw sprite
-void dsprite (SDL_Surface* image,
-                SDL_Surface* screen,
+void dsprite (SDL_Renderer* ren,
+                SDL_Texture* tex,
                 int sorX, int sorY,
                 int scrX, int scrY,
-                int width, int height,
-		int cr,
-		int cg, int cb);
+                int width, int height);
 #endif
