@@ -1,7 +1,8 @@
 #include "ork.h"
 
-int main (int argc, char *argv[])
+int main()
 {
+
 //no function is used to make stuff simpler
 SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -21,36 +22,47 @@ SDL_Init(SDL_INIT_EVERYTHING);
         printf("Could not create window: %s\n", SDL_GetError());
         return 1;
     }
+
+ 
+    //create renderer
+    SDL_Renderer* screen = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+
     //load bmp
     SDL_Surface* box = SDL_LoadBMP("media/image/box.bmp");
+    SDL_Surface* ork = SDL_LoadBMP("media/image/Gami_2.bmp");
+    //set clear
+    SDL_SetColorKey( box, SDL_TRUE, SDL_MapRGB(box->format, 255, 0, 255) ); 
+    //create texture
+    SDL_Texture* Ork = SDL_CreateTextureFromSurface(screen,ork);
+    SDL_Texture* Box = SDL_CreateTextureFromSurface(screen,box);
+    //free opend surface 
+    SDL_FreeSurface(box);
+    SDL_FreeSurface(ork);
 
-    SDL_Surface* OrK = SDL_LoadBMP("media/image/Gami_2.bmp");
-
-    SDL_Surface* screen = SDL_GetWindowSurface( window );
-
-    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 10, 50, 10));
-  
-    dsprite (box, screen, 0, 0, 50, 50, 250, 193, 255, 0, 255);
-
-    dsprite (OrK, screen, 0, 0, 250, 400, 32, 32, 255, 0, 255);
-
-    SDL_UpdateWindowSurface( window );
+    //clear
+    SDL_RenderClear(screen);
+    //draw
+    dsprite (screen, Box, 0, 0, 50, 50, 250, 193);
+    dsprite (screen, Ork, 0, 0, 250, 400, 32, 32);
+    //update
+    SDL_RenderPresent(screen);
 
     SDL_Delay(3000);  // Pause execution for 3000 milliseconds
 
     // clear screen
-    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+    SDL_RenderClear(screen);
 
-    //free opend surface 
-    SDL_FreeSurface(box);
 
-    SDL_FreeSurface(OrK);
+    //free all textures
+    SDL_DestroyTexture(Ork);
+    SDL_DestroyTexture(Box);
 
+    //Destroy Renderer
+    SDL_DestroyRenderer(screen);
     // Close and destroy the window
     SDL_DestroyWindow(window);
 
     // Clean up
     SDL_Quit();
 }
-
-
