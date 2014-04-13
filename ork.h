@@ -8,6 +8,14 @@
 #include "imagel.h"
 //including all things
 
+//quit from loop
+int quit = 0;
 
- 
+//position structure
+struct pos {
+	int x;
+	int y;
+};
+
+
 #endif
