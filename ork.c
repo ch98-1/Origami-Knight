@@ -35,18 +35,11 @@ SDL_Init(SDL_INIT_EVERYTHING);
 	int pposy = 100;
 
 
-    //load bmp
-    SDL_Surface* box = SDL_LoadBMP("media/image/box.bmp");
-    SDL_Surface* ork = SDL_LoadBMP("media/image/Gami_2.bmp");
-    //set clear
-    SDL_SetColorKey( box, SDL_TRUE, SDL_MapRGB(box->format, 255, 0, 255) ); 
-	SDL_SetColorKey( ork, SDL_TRUE, SDL_MapRGB(box->format, 255, 0, 255));
+
     //create texture
-    SDL_Texture* Ork = SDL_CreateTextureFromSurface(screen,ork);
-    SDL_Texture* Box = SDL_CreateTextureFromSurface(screen,box);
-    //free opend surface 
-    SDL_FreeSurface(box);
-    SDL_FreeSurface(ork);
+    SDL_Texture* Ork = limg("Gami_2", screen);
+	SDL_Texture* Box = limg("box", screen);
+
 
 	//main loop
 	while (quit == 0)
