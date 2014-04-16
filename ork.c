@@ -41,6 +41,9 @@ SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_Texture* Box = limg("box", screen);
 
 
+	//set draw color
+	SDL_SetRenderDrawColor(screen, 200, 200, 200, 255);
+
 	//main loop
 	while (quit == 0)
 	{

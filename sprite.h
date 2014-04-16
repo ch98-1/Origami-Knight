@@ -1,9 +1,8 @@
 #ifndef _SPRITE_H_
     #define _SPRITE_H_
 
-#include "SDL.h"
-#include <stdio.h>
-#include <stdlib.h>
+
+#include "all.h"
 
 
 //draw sprite
