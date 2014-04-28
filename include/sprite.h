@@ -6,9 +6,11 @@
 
 
 //draw sprite
-void dsprite (SDL_Renderer* ren,
-                SDL_Texture* tex,
-                int sorX, int sorY,
-                int scrX, int scrY,
-                int width, int height);
+void dsprite(SDL_Renderer* ren,
+			SDL_Texture* tex,
+			struct pos sor,
+			struct pos map,
+			int width, int height,
+			float zoom);
+
 #endif

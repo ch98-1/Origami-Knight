@@ -9,8 +9,8 @@
 //returns 2 if it moved the screen position
 //it may be moved even with collision
 //don't put large value in because character may look like it is floating
-//x and y movement of sprite
+//mpos is x and y movement of sprite
 //pointer for linked list of collision boxes
-int move(long x, long y, struct objects* pos);
+int move(struct pos mpos, struct objects* pos);
  
 #endif

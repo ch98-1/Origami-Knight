@@ -8,7 +8,6 @@
 
 //object linked list structure
 struct objects{
-	long wid;
 	char name[15];
 	char idef[10];
 	SDL_Rect image;
@@ -22,6 +21,14 @@ struct pos{
 	long x;
 	long y;
 };
+
+
+//player position and camera position
+struct pos ppos;
+struct pos cpos;
+
+
+void init();
 
 
 #endif

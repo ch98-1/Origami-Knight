@@ -3,6 +3,8 @@
 int main()
 {
 
+init();
+
 //no function is used to make stuff simpler
 SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -30,23 +32,30 @@ SDL_Init(SDL_INIT_EVERYTHING);
 	//Event handler
 	SDL_Event ev;
 
-	//player position having problem with structures 
-	int pposx = 100;
-	int pposy = 100;
+	//player position 
+	ppos.x = 100;
+	ppos.y = 100;
 
 
 
     //create texture
     SDL_Texture* Ork = limg("Gami_2", screen);
 	SDL_Texture* Box = limg("box", screen);
+	SDL_Texture* ch98 = limg("ch98", screen);
 
 
 	//set draw color
 	SDL_SetRenderDrawColor(screen, 200, 200, 200, 255);
 
+	//movement position structure
+	struct pos mpos;
+
+
 	//main loop
 	while (quit == 0)
 	{
+		mpos.x = 0;
+		mpos.y = 0;
 		//event handling
 		//Handle events on queue
 		while (SDL_PollEvent(&ev) != 0)
@@ -67,11 +76,11 @@ SDL_Init(SDL_INIT_EVERYTHING);
 				switch (ev.key.keysym.sym)
 				{
 				case SDLK_UP:
-						pposy = pposy - 3;
+						mpos.y = mpos.y - 3;
 					break;
 
 				case SDLK_DOWN:
-						pposy = pposy + 3;
+						mpos.y = mpos.y + 3;
 					break;
 
 				default:
@@ -88,19 +97,32 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		//key DETECTION
 		const Uint8 *state = SDL_GetKeyboardState(NULL);
 		if (state[SDL_SCANCODE_LEFT]) {
-			pposx = pposx - 3;
+			mpos.x = mpos.x - 3;
 		}
 		if (state[SDL_SCANCODE_RIGHT]) {
-			pposx = pposx + 3;
+			mpos.x = mpos.x + 3;
 		}
 
+		move(mpos, &lpos);
+		//box position and ch98 block position 
+		struct pos boxp;
+		boxp.x = 50;
+		boxp.y = 50;
+		struct pos ch98p;
+		ch98p.x = 100;
+		ch98p.y = 100;
+		//0,0 position
+		struct pos opos;
+		opos.x = 0;
+		opos.y = 0;
 
 
 		//clear
 		SDL_RenderClear(screen);
 		//draw
-		dsprite(screen, Box, 0, 0, 50, 50, 250, 193);
-		dsprite(screen, Ork, 0, 0, pposx, pposy, 32, 32);
+		dsprite(screen, ch98, opos, ch98p, 200, 200, 0.5);
+		dsprite(screen, Box, opos, boxp, 250, 193, 0.3);
+		dsprite(screen, Ork, opos, ppos, 32, 32, 1);
 		//update
 		SDL_RenderPresent(screen);
 		SDL_Delay(10);  // Pause execution for 10 milliseconds
