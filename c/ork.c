@@ -103,7 +103,17 @@ SDL_Init(SDL_INIT_EVERYTHING);
 			mpos.x = mpos.x + 3;
 		}
 
-		move(mpos, &lpos);
+		//window with and window hight
+		int* ww;
+		int* wh;
+
+		//get window size
+		void SDL_GetWindowSize(window, ww, wh);
+
+		//move function with collision detection
+		move(mpos, lpos, ww, wh);
+
+
 		//box position and ch98 block position 
 		struct pos boxp;
 		boxp.x = 50;

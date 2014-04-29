@@ -11,6 +11,7 @@
 //don't put large value in because character may look like it is floating
 //mpos is x and y movement of sprite
 //pointer for linked list of collision boxes
-int move(struct pos mpos, struct objects* pos);
+//wand h for window with and hight
+int move(struct pos mpos, struct objects* pos, int w, int h);
  
 #endif
