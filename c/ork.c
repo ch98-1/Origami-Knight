@@ -104,11 +104,11 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		}
 
 		//window with and window hight
-		int* ww;
-		int* wh;
+		int* ww = 640;
+		int* wh = 480;
 
-		//get window size
-		void SDL_GetWindowSize(window, ww, wh);
+		//get window size seem to stop something from working
+		//SDL_GetWindowSize(window, ww, wh);
 
 		//move function with collision detection
 		move(mpos, lpos, ww, wh);
