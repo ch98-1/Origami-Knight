@@ -33,9 +33,12 @@ SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_Event ev;
 
 	//player position 
-	ppos.x = 100;
-	ppos.y = 100;
+	ppos.x = 320;
+	ppos.y = 240;
 
+	//player hight (y) and with (x)
+	psize.x = 32;
+	psize.y = 32;
 
 
     //create texture
@@ -83,6 +86,10 @@ SDL_Init(SDL_INIT_EVERYTHING);
 						mpos.y = mpos.y + 3;
 					break;
 
+				case SDLK_LEFT:
+					mpos.x = mpos.x - 1;
+					break;
+					
 				default:
 						
 					break;
@@ -102,6 +109,12 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		if (state[SDL_SCANCODE_RIGHT]) {
 			mpos.x = mpos.x + 3;
 		}
+		if (state[SDL_SCANCODE_UP]) {
+			mpos.y = mpos.y - 1;
+		}
+		if (state[SDL_SCANCODE_DOWN]) {
+			mpos.y = mpos.y + 1;
+		}
 
 		//window with and window hight
 		int* ww;
@@ -109,6 +122,11 @@ SDL_Init(SDL_INIT_EVERYTHING);
 
 		//get window size seem to stop something from working
 		SDL_GetWindowSize(window, &ww, &wh);
+
+		
+		//fake gravity
+		mpos.y = mpos.y + 1;
+
 
 		//move function with collision detection
 		move(mpos, lpos, ww, wh);
@@ -132,7 +150,7 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		//draw
 		dsprite(screen, ch98, opos, ch98p, 200, 200, 0.5);
 		dsprite(screen, Box, opos, boxp, 250, 193, 0.3);
-		dsprite(screen, Ork, opos, ppos, 32, 32, 1);
+		dsprite(screen, Ork, opos, ppos, psize.x, psize.y, 1);
 		//update
 		SDL_RenderPresent(screen);
 		SDL_Delay(10);  // Pause execution for 10 milliseconds

@@ -18,8 +18,8 @@ struct objects{
 struct objects* lpos;
 
 struct pos{
-	long x;
-	long y;
+	float x;
+	float y;
 };
 
 
@@ -27,6 +27,8 @@ struct pos{
 struct pos ppos;
 struct pos cpos;
 
+//player hight and with
+struct pos psize;
 
 void init();
 
