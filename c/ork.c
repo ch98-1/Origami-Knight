@@ -127,9 +127,17 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		//fake gravity
 		mpos.y = mpos.y + 1;
 
+		//movement position for only x and y
+		struct pos mposx;
+		struct pos mposy;
+		mposx.x = mpos.x;
+		mposx.y = 0;
+		mposy.y = mpos.y;
+		mposy.x = 0;
 
 		//move function with collision detection
-		move(mpos, lpos, ww, wh);
+		move(mposx, lpos, ww, wh);
+		move(mposy, lpos, ww, wh);
 
 
 		//box position and ch98 block position 
