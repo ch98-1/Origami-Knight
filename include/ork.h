@@ -6,6 +6,7 @@
 #include "sprite.h"
 #include "imagel.h"
 #include "collision.h"
+#include "map.h"
 //including all things
 
 //quit from loop
