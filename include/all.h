@@ -30,6 +30,13 @@ struct pos cpos;
 //player hight and with
 struct pos psize;
 
+//player accelelation and gravity
+struct pos acc;
+struct pos grav;
+
+//player jump power
+float jump;
+
 void init();
 
 

@@ -5,8 +5,8 @@ int move(struct pos mpos, struct objects* pos, int w, int h)
 
 	//SDL_Rect structure for testing the collision
 	SDL_Rect cbox;
-	cbox.x = 100;
-	cbox.y = 100;
+	cbox.x = 200;
+	cbox.y = 200;
 	cbox.w = 100;
 	cbox.h = 100;
 

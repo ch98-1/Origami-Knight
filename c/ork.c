@@ -33,8 +33,8 @@ SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_Event ev;
 
 	//player position 
-	ppos.x = 320;
-	ppos.y = 240;
+	ppos.x = 225;
+	ppos.y = 150;
 
 	//player hight (y) and with (x)
 	psize.x = 32;
@@ -52,6 +52,11 @@ SDL_Init(SDL_INIT_EVERYTHING);
 
 	//movement position structure
 	struct pos mpos;
+
+	//collision detection result
+	struct pos col;
+	col.x = 0;
+	col.y = 0;
 
 
 	//main loop
@@ -110,7 +115,9 @@ SDL_Init(SDL_INIT_EVERYTHING);
 			mpos.x = mpos.x + 3;
 		}
 		if (state[SDL_SCANCODE_UP]) {
-			mpos.y = mpos.y - 1;
+			if (!col.y){
+				acc.y = acc.y - jump;
+			}
 		}
 		if (state[SDL_SCANCODE_DOWN]) {
 			mpos.y = mpos.y + 1;
@@ -124,20 +131,30 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		SDL_GetWindowSize(window, &ww, &wh);
 
 		
-		//fake gravity
-		mpos.y = mpos.y + 1;
+		//gravity and accelelation 
+		if (!col.x){
+			acc.x = 0;
+		}
+		else if (!col.y){
+			acc.y = 0;
+		}
+		acc.y = acc.y + grav.y;
+		acc.x = acc.x + grav.x;
 
 		//movement position for only x and y
 		struct pos mposx;
 		struct pos mposy;
-		mposx.x = mpos.x;
+		mposx.x = mpos.x + acc.x;
 		mposx.y = 0;
-		mposy.y = mpos.y;
+		mposy.y = mpos.y + acc.y;
 		mposy.x = 0;
 
+
 		//move function with collision detection
-		move(mposx, lpos, ww, wh);
-		move(mposy, lpos, ww, wh);
+		col.x = move(mposx, lpos, ww, wh);
+		col.y = move(mposy, lpos, ww, wh);
+
+
 
 
 		//box position and ch98 block position 
@@ -145,8 +162,8 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		boxp.x = 50;
 		boxp.y = 50;
 		struct pos ch98p;
-		ch98p.x = 100;
-		ch98p.y = 100;
+		ch98p.x = 200;
+		ch98p.y = 200;
 		//0,0 position
 		struct pos opos;
 		opos.x = 0;
