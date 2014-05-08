@@ -35,7 +35,14 @@ struct pos acc;
 struct pos grav;
 
 //player jump power
-float jump;
+struct pos maxp;
+
+//ground and air risistance
+struct pos gris;
+struct pos aris;
+
+//power when kicking or jumping vertically (like kicking sideways for jumping up) stands for wall kick.
+struct pos wk;
 
 void init();
 

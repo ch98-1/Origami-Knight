@@ -79,20 +79,18 @@ SDL_Init(SDL_INIT_EVERYTHING);
 
 			//User presses a key
 			case SDL_KEYDOWN:
-
-				//Select surfaces based on key press
 				switch (ev.key.keysym.sym)
 				{
-				case SDLK_UP:
-						mpos.y = mpos.y - 3;
+				case SDLK_UP: //jump up
+						//if keypress is up
 					break;
 
 				case SDLK_DOWN:
-						mpos.y = mpos.y + 3;
+						//if keypress is down
 					break;
 
 				case SDLK_LEFT:
-					mpos.x = mpos.x - 1;
+						//if keypress is left
 					break;
 					
 				default:
@@ -109,18 +107,33 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		//key DETECTION
 		const Uint8 *state = SDL_GetKeyboardState(NULL);
 		if (state[SDL_SCANCODE_LEFT]) {
-			mpos.x = mpos.x - 3;
+			mpos.x = mpos.x - 0;
+			if (!col.x){
+				acc.x = acc.x - maxp.x;
+			}
+			if (!col.y){
+				acc.x = acc.x - (maxp.x * wk.x);
+			}
 		}
 		if (state[SDL_SCANCODE_RIGHT]) {
-			mpos.x = mpos.x + 3;
+			mpos.x = mpos.x + 0;
+			if (!col.x){
+				acc.x = acc.x + maxp.x;
+			}
+			if (!col.y){
+				acc.x = acc.x + (maxp.x * wk.x);
+			}
 		}
 		if (state[SDL_SCANCODE_UP]) {
 			if (!col.y){
-				acc.y = acc.y - jump;
+				acc.y = acc.y - maxp.y;
+			}
+			if (!col.x){
+				acc.y = acc.y - (maxp.y * wk.y);
 			}
 		}
 		if (state[SDL_SCANCODE_DOWN]) {
-			mpos.y = mpos.y + 1;
+			//if keydown is down
 		}
 
 		//window with and window hight
@@ -130,14 +143,23 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		//get window size seem to stop something from working
 		SDL_GetWindowSize(window, &ww, &wh);
 
+
+		//ground and air risistance
+		if (!col.y){
+			acc.x = acc.x - (acc.x * gris.x);
+		}
+		else{
+			acc.x = acc.x - (acc.x * aris.x);
+		}
+		if (!col.x){
+			acc.y = acc.y - (acc.y * gris.y);
+		}
+		else{
+			acc.y = acc.y - (acc.y * aris.y);
+		}
+
 		
 		//gravity and accelelation 
-		if (!col.x){
-			acc.x = 0;
-		}
-		else if (!col.y){
-			acc.y = 0;
-		}
 		acc.y = acc.y + grav.y;
 		acc.x = acc.x + grav.x;
 
@@ -154,7 +176,13 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		col.x = move(mposx, lpos, ww, wh);
 		col.y = move(mposy, lpos, ww, wh);
 
-
+		//gravity, accelelation reset
+		if (!col.x){
+			acc.x = 0;
+		}
+		else if (!col.y){
+			acc.y = 0;
+		}
 
 
 		//box position and ch98 block position 
