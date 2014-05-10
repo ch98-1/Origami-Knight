@@ -44,6 +44,13 @@ struct pos aris;
 //power when kicking or jumping vertically (like kicking sideways for jumping up) stands for wall kick.
 struct pos wk;
 
+//time of last frame nad last FPS
+unsigned int lft;
+unsigned int lfps;
+
+//Frame
+int frame;
+
 void init();
 
 

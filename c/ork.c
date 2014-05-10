@@ -25,6 +25,10 @@ SDL_Init(SDL_INIT_EVERYTHING);
         return 1;
     }
 
+	//set last frame time and last FPS time to now
+	lft = SDL_GetTicks();
+	lfps = SDL_GetTicks();
+
  
     //create renderer
     SDL_Renderer* screen = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -206,7 +210,16 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		dsprite(screen, Ork, opos, ppos, psize.x, psize.y, 1);
 		//update
 		SDL_RenderPresent(screen);
-		SDL_Delay(10);  // Pause execution for 10 milliseconds
+		if (16 > (SDL_GetTicks() - lft) ) {
+			SDL_Delay(16 - (SDL_GetTicks() - lft));  // Pause execution for 16 milliseconds from last  frame
+		}
+		lft = SDL_GetTicks();
+		frame++;
+		if (30000 < (SDL_GetTicks() - lfps) ){
+			printf("%d FPS \n", frame/((SDL_GetTicks() - lfps)/1000));
+			frame = 0;
+			lfps = SDL_GetTicks();
+		}
 	}
 
     // clear screen

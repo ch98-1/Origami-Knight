@@ -19,4 +19,5 @@ void init()
 	aris.y = 0.02;
 	wk.x = 0.5;
 	wk.y = 0.5;
+	frame = 0;
 }
