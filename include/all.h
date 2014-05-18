@@ -22,7 +22,7 @@ struct pos{
 	float y;
 };
 
-struct mobj{//moving object defenition
+struct pobj{//plater object defenition
 	//object position and camera position
 	struct pos ppos;
 	struct pos cpos;
@@ -47,8 +47,8 @@ struct mobj{//moving object defenition
 };
 
 //real movement and player initial settings
-struct mobj rm;
-struct mobj pl;
+struct pobj rm;
+struct pobj pl;
 
 //time of last frame nad last FPS
 unsigned int lft;
