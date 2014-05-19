@@ -22,27 +22,33 @@ struct pos{
 	float y;
 };
 
+struct mobj{//moving object defenition
+	//object position and camera position
+	struct pos ppos;
+	struct pos cpos;
 
-//player position and camera position
-struct pos ppos;
-struct pos cpos;
+	//object hight and with
+	struct pos psize;
 
-//player hight and with
-struct pos psize;
+	//object accelelation and gravity
+	struct pos acc;
+	struct pos grav;
 
-//player accelelation and gravity
-struct pos acc;
-struct pos grav;
+	//object jump power
+	struct pos maxp;
 
-//player jump power
-struct pos maxp;
+	//ground and air risistance
+	struct pos gris;
+	struct pos aris;
 
-//ground and air risistance
-struct pos gris;
-struct pos aris;
+	//power when kicking or jumping vertically (like kicking sideways for jumping up) stands for wall kick.
+	struct pos wk;
 
-//power when kicking or jumping vertically (like kicking sideways for jumping up) stands for wall kick.
-struct pos wk;
+};
+
+//real movement and player initial settings
+struct mobj rm;
+struct mobj pl;
 
 //time of last frame nad last FPS
 unsigned int lft;

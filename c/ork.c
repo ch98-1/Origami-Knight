@@ -36,13 +36,6 @@ SDL_Init(SDL_INIT_EVERYTHING);
 	//Event handler
 	SDL_Event ev;
 
-	//player position 
-	ppos.x = 225;
-	ppos.y = 150;
-
-	//player hight (y) and with (x)
-	psize.x = 32;
-	psize.y = 32;
 
 
     //create texture
@@ -113,27 +106,27 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		if (state[SDL_SCANCODE_LEFT]) {
 			mpos.x = mpos.x - 0;
 			if (!col.x){
-				acc.x = acc.x - maxp.x;
+				rm.acc.x = rm.acc.x - rm.maxp.x;
 			}
 			if (!col.y){
-				acc.x = acc.x - (maxp.x * wk.x);
+				rm.acc.x = rm.acc.x - (rm.maxp.x * rm.wk.x);
 			}
 		}
 		if (state[SDL_SCANCODE_RIGHT]) {
 			mpos.x = mpos.x + 0;
 			if (!col.x){
-				acc.x = acc.x + maxp.x;
+				rm.acc.x = rm.acc.x + rm.maxp.x;
 			}
 			if (!col.y){
-				acc.x = acc.x + (maxp.x * wk.x);
+				rm.acc.x = rm.acc.x + (rm.maxp.x * rm.wk.x);
 			}
 		}
 		if (state[SDL_SCANCODE_UP]) {
 			if (!col.y){
-				acc.y = acc.y - maxp.y;
+				rm.acc.y = rm.acc.y - rm.maxp.y;
 			}
 			if (!col.x){
-				acc.y = acc.y - (maxp.y * wk.y);
+				rm.acc.y = rm.acc.y - (rm.maxp.y * rm.wk.y);
 			}
 		}
 		if (state[SDL_SCANCODE_DOWN]) {
@@ -150,29 +143,29 @@ SDL_Init(SDL_INIT_EVERYTHING);
 
 		//ground and air risistance
 		if (!col.y){
-			acc.x = acc.x - (acc.x * gris.x);
+			rm.acc.x = rm.acc.x - (rm.acc.x * rm.gris.x);
 		}
 		else{
-			acc.x = acc.x - (acc.x * aris.x);
+			rm.acc.x = rm.acc.x - (rm.acc.x * rm.aris.x);
 		}
 		if (!col.x){
-			acc.y = acc.y - (acc.y * gris.y);
+			rm.acc.y = rm.acc.y - (rm.acc.y * rm.gris.y);
 		}
 		else{
-			acc.y = acc.y - (acc.y * aris.y);
+			rm.acc.y = rm.acc.y - (rm.acc.y * rm.aris.y);
 		}
 
 		
 		//gravity and accelelation 
-		acc.y = acc.y + grav.y;
-		acc.x = acc.x + grav.x;
+		rm.acc.y = rm.acc.y + rm.grav.y;
+		rm.acc.x = rm.acc.x + rm.grav.x;
 
 		//movement position for only x and y
 		struct pos mposx;
 		struct pos mposy;
-		mposx.x = mpos.x + acc.x;
+		mposx.x = mpos.x + rm.acc.x;
 		mposx.y = 0;
-		mposy.y = mpos.y + acc.y;
+		mposy.y = mpos.y + rm.acc.y;
 		mposy.x = 0;
 
 
@@ -182,10 +175,10 @@ SDL_Init(SDL_INIT_EVERYTHING);
 
 		//gravity, accelelation reset
 		if (!col.x){
-			acc.x = 0;
+			rm.acc.x = 0;
 		}
 		else if (!col.y){
-			acc.y = 0;
+			rm.acc.y = 0;
 		}
 
 
@@ -207,7 +200,7 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		//draw
 		dsprite(screen, ch98, opos, ch98p, 200, 200, 0.5);
 		dsprite(screen, Box, opos, boxp, 250, 193, 0.3);
-		dsprite(screen, Ork, opos, ppos, psize.x, psize.y, 1);
+		dsprite(screen, Ork, opos, rm.ppos, rm.psize.x, rm.psize.y, 1);
 		//update
 		SDL_RenderPresent(screen);
 		if (16 > (SDL_GetTicks() - lft) ) {
@@ -228,7 +221,8 @@ SDL_Init(SDL_INIT_EVERYTHING);
 
     //free all textures
     SDL_DestroyTexture(Ork);
-    SDL_DestroyTexture(Box);
+	SDL_DestroyTexture(Box);
+	SDL_DestroyTexture(ch98);
 
     //Destroy Renderer
     SDL_DestroyRenderer(screen);
