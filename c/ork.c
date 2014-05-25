@@ -11,7 +11,7 @@ SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Window *window;                    // Declare a pointer
 
     window = SDL_CreateWindow(
-        "An SDL2 window",                  // window title
+        wtitle,                  // window title
         SDL_WINDOWPOS_UNDEFINED,           // initial x position
         SDL_WINDOWPOS_UNDEFINED,           // initial y position
         640,                               // width, in pixels
@@ -28,6 +28,8 @@ SDL_Init(SDL_INIT_EVERYTHING);
 	//set last frame time and last FPS time to now
 	lft = SDL_GetTicks();
 	lfps = SDL_GetTicks();
+	lfpss = SDL_GetTicks();
+
 
  
     //create renderer
@@ -106,27 +108,27 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		if (state[SDL_SCANCODE_LEFT]) {
 			mpos.x = mpos.x - 0;
 			if (!col.x){
-				rm.acc.x = rm.acc.x - rm.maxp.x;
+				pl.acc.x = pl.acc.x - pl.maxp.x;
 			}
 			if (!col.y){
-				rm.acc.x = rm.acc.x - (rm.maxp.x * rm.wk.x);
+				pl.acc.x = pl.acc.x - (pl.maxp.x * pl.wk.x);
 			}
 		}
 		if (state[SDL_SCANCODE_RIGHT]) {
 			mpos.x = mpos.x + 0;
 			if (!col.x){
-				rm.acc.x = rm.acc.x + rm.maxp.x;
+				pl.acc.x = pl.acc.x + pl.maxp.x;
 			}
 			if (!col.y){
-				rm.acc.x = rm.acc.x + (rm.maxp.x * rm.wk.x);
+				pl.acc.x = pl.acc.x + (pl.maxp.x * pl.wk.x);
 			}
 		}
 		if (state[SDL_SCANCODE_UP]) {
 			if (!col.y){
-				rm.acc.y = rm.acc.y - rm.maxp.y;
+				pl.acc.y = pl.acc.y - pl.maxp.y;
 			}
 			if (!col.x){
-				rm.acc.y = rm.acc.y - (rm.maxp.y * rm.wk.y);
+				pl.acc.y = pl.acc.y - (pl.maxp.y * pl.wk.y);
 			}
 		}
 		if (state[SDL_SCANCODE_DOWN]) {
@@ -143,42 +145,42 @@ SDL_Init(SDL_INIT_EVERYTHING);
 
 		//ground and air risistance
 		if (!col.y){
-			rm.acc.x = rm.acc.x - (rm.acc.x * rm.gris.x);
+			pl.acc.x = pl.acc.x - (pl.acc.x * pl.gris.x);
 		}
 		else{
-			rm.acc.x = rm.acc.x - (rm.acc.x * rm.aris.x);
+			pl.acc.x = pl.acc.x - (pl.acc.x * pl.aris.x);
 		}
 		if (!col.x){
-			rm.acc.y = rm.acc.y - (rm.acc.y * rm.gris.y);
+			pl.acc.y = pl.acc.y - (pl.acc.y * pl.gris.y);
 		}
 		else{
-			rm.acc.y = rm.acc.y - (rm.acc.y * rm.aris.y);
+			pl.acc.y = pl.acc.y - (pl.acc.y * pl.aris.y);
 		}
 
 		
 		//gravity and accelelation 
-		rm.acc.y = rm.acc.y + rm.grav.y;
-		rm.acc.x = rm.acc.x + rm.grav.x;
+		pl.acc.y = pl.acc.y + pl.grav.y;
+		pl.acc.x = pl.acc.x + pl.grav.x;
 
 		//movement position for only x and y
 		struct pos mposx;
 		struct pos mposy;
-		mposx.x = mpos.x + rm.acc.x;
+		mposx.x = mpos.x + pl.acc.x;
 		mposx.y = 0;
-		mposy.y = mpos.y + rm.acc.y;
+		mposy.y = mpos.y + pl.acc.y;
 		mposy.x = 0;
 
 
 		//move function with collision detection
-		col.x = move(mposx, lpos, ww, wh);
-		col.y = move(mposy, lpos, ww, wh);
+		col.x = move(mposx, ww, wh);
+		col.y = move(mposy, ww, wh);
 
 		//gravity, accelelation reset
 		if (!col.x){
-			rm.acc.x = 0;
+			pl.acc.x = 0;
 		}
 		else if (!col.y){
-			rm.acc.y = 0;
+			pl.acc.y = 0;
 		}
 
 
@@ -200,18 +202,23 @@ SDL_Init(SDL_INIT_EVERYTHING);
 		//draw
 		dsprite(screen, ch98, opos, ch98p, 200, 200, 0.5);
 		dsprite(screen, Box, opos, boxp, 250, 193, 0.3);
-		dsprite(screen, Ork, opos, rm.ppos, rm.psize.x, rm.psize.y, 1);
+		dsprite(screen, Ork, opos, pl.ppos, pl.psize.x, pl.psize.y, 1);
 		//update
 		SDL_RenderPresent(screen);
 		if (16 > (SDL_GetTicks() - lft) ) {
 			SDL_Delay(16 - (SDL_GetTicks() - lft));  // Pause execution for 16 milliseconds from last  frame
 		}
 		lft = SDL_GetTicks();
-		frame++;
-		if (30000 < (SDL_GetTicks() - lfps) ){
-			printf("%d FPS \n", frame/((SDL_GetTicks() - lfps)/1000));
-			frame = 0;
-			lfps = SDL_GetTicks();
+		fps = 1000/(SDL_GetTicks() - lfps);
+		lfps = SDL_GetTicks();
+		if (1000 < (SDL_GetTicks() - lfpss) ){
+			strcpy(wtitle, "Origami Knight ");
+			char sfps[10];
+			sprintf(sfps, "%.0f", fps);
+			strcat(wtitle, sfps);
+			strcat(wtitle, "fps");
+			SDL_SetWindowTitle(window, wtitle);
+			lfpss = SDL_GetTicks();
 		}
 	}
 

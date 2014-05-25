@@ -10,9 +10,8 @@
 //it may be moved even with collision
 //don't put large value in because character may look like it is floating
 //or it may go through a wall
-//mpos is x and y movement of sprite
-//pointer for linked list of collision boxes
-//wand h for window with and hight
-int move(struct pos mpos, struct objects* pos, int w, int h);
+//mpos is x and y movement of sprite per second
+//w and h for window with and hight
+int move(struct pos mpos, int w, int h);
  
 #endif

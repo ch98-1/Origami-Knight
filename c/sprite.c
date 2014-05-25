@@ -24,8 +24,8 @@ void dsprite (SDL_Renderer* ren,
 
    // Part of the screen we want to draw the sprite to
    SDL_Rect destination;
-   destination.x = map.x - rm.cpos.x;
-   destination.y = map.y - rm.cpos.y;
+   destination.x = map.x - pl.cpos.x;
+   destination.y = map.y - pl.cpos.y;
    destination.w = width*zoom;
    destination.h = height*zoom;
 	SDL_RenderCopy(ren, tex, &source, &destination);

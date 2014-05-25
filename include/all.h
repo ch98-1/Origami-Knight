@@ -6,18 +6,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-//object linked list structure
-struct objects{
-	char name[15];
-	char idef[10];
-	SDL_Rect image;
+struct col{//linked list of collision boxes
 	SDL_Rect cbox;
-	struct objects* next;
+	struct posl* next;
 };
- 
-struct objects* lpos;
 
-struct pos{
+
+ 
+
+struct objid{//map object id
+	int oid;//object id
+	int movement;//how it moves
+};
+
+struct pos{//simplex and y position. may be used as hight and with
 	float x;
 	float y;
 };
@@ -37,7 +39,7 @@ struct pobj{//plater object defenition
 	//object jump power
 	struct pos maxp;
 
-	//ground and air risistance
+	//ground and air risistance 
 	struct pos gris;
 	struct pos aris;
 
@@ -46,17 +48,45 @@ struct pobj{//plater object defenition
 
 };
 
-//real movement and player initial settings
-struct pobj rm;
+struct objmov{
+	short unsigned int mtf; //if it can move, it is trur (1 or more) 0 or false for immovable object
+	struct pos acc;//object accelelation
+	struct pos grav;//object personal gravity
+};
+
+struct objint{
+	short unsigned int collision;//true or false of if it will collide
+};
+
+//set object defenition structure as type
+//object defenition structure
+typedef struct objects{
+	char name[8];//name of image
+	struct objmov mov;//object movemend defenition
+	struct objint ia;//object interaction defenition
+	struct pos image;//image with and hight
+	struct col* cbox;//linked list of collision boxes
+}object;
+
+
+//list of all possible obects including all possible players.
+object obj[10000];
+
+//player initial settings
 struct pobj pl;
 
-//time of last frame nad last FPS
+//time of last frame and last FPS last FPS shown
 unsigned int lft;
 unsigned int lfps;
+unsigned int lfpss;
 
-//Frame
-int frame;
+//window title
+char wtitle[50];
 
+//frame per second
+float fps;
+
+//init function
 void init();
 
 
