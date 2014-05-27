@@ -6,13 +6,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct col{//linked list of collision boxes
+struct mapobj{//linked list of objects in sections of the map
 	SDL_Rect cbox;
-	struct posl* next;
+	int dint[4];//integer data for each objects in map
+	struct mapobj* next;
 };
 
 
- 
+struct arpam{//map of an area
+	char name[15]; //file name of the area
+	
+};
 
 struct objid{//map object id
 	int oid;//object id
@@ -52,6 +56,13 @@ struct objmov{
 	short unsigned int mtf; //if it can move, it is trur (1 or more) 0 or false for immovable object
 	struct pos acc;//object accelelation
 	struct pos grav;//object personal gravity
+	//ground and air risistance 
+	struct pos gris;
+	struct pos aris;
+	//object hight and with
+	struct pos psize;
+	//power when kicking or jumping vertically (like kicking sideways for jumping up) stands for wall kick.
+	struct pos wk;
 };
 
 struct objint{
@@ -65,7 +76,6 @@ typedef struct objects{
 	struct objmov mov;//object movemend defenition
 	struct objint ia;//object interaction defenition
 	struct pos image;//image with and hight
-	struct col* cbox;//linked list of collision boxes
 }object;
 
 
