@@ -6,16 +6,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct mapobj{//linked list of objects in sections of the map
+typedef struct mapobj{//linked list of objects in sections of the map
+	int objid;//object id on object array
 	SDL_Rect cbox;
 	int dint[4];//integer data for each objects in map
 	struct mapobj* next;
-};
+}mapobj;
+
+//test map object section
+mapobj* tmaps;
 
 
 struct arpam{//map of an area
 	char name[15]; //file name of the area
-	
+	mapobj* map[50][50];//it can get bigger
 };
 
 struct objid{//map object id
@@ -53,7 +57,7 @@ struct pobj{//plater object defenition
 };
 
 struct objmov{
-	short unsigned int mtf; //if it can move, it is trur (1 or more) 0 or false for immovable object
+	short unsigned int mtf; //if it can move, it is true (1 or more) 0 or false for immovable object
 	struct pos acc;//object accelelation
 	struct pos grav;//object personal gravity
 	//ground and air risistance 
@@ -80,7 +84,7 @@ typedef struct objects{
 
 
 //list of all possible obects including all possible players.
-object obj[10000];
+object obj[1000];
 
 //player initial settings
 struct pobj pl;

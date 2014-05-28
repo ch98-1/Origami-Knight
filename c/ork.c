@@ -209,12 +209,12 @@ SDL_Init(SDL_INIT_EVERYTHING);
 			SDL_Delay(16 - (SDL_GetTicks() - lft));  // Pause execution for 16 milliseconds from last  frame
 		}
 		lft = SDL_GetTicks();
-		fps = 1000/(SDL_GetTicks() - lfps);
+		fps = (float)1000/(SDL_GetTicks() - lfps);
 		lfps = SDL_GetTicks();
 		if (1000 < (SDL_GetTicks() - lfpss) ){
 			strcpy(wtitle, "Origami Knight ");
 			char sfps[10];
-			sprintf(sfps, "%.0f", fps);
+			sprintf(sfps, "%.1f", fps);
 			strcat(wtitle, sfps);
 			strcat(wtitle, "fps");
 			SDL_SetWindowTitle(window, wtitle);
